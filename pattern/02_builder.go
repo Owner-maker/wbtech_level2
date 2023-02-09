@@ -1,10 +1,5 @@
 package pattern
 
-import (
-	"errors"
-	"fmt"
-)
-
 /*
 	Реализовать паттерн «строитель».
 Объяснить применимость паттерна, его плюсы и минусы, а также реальные примеры использования данного примера на практике.
@@ -28,139 +23,75 @@ import (
 
 Примеры:
 1) Логика "сбора" заказа, будь-то сфера питания, услуг, и т.д., где необходима постепенная настройка (создание) объекта
+
+Мой пример:
+Есть структура Игрока с рядом его характеристик (имя, кол-во жизней, вида оружия и т.д.), необходимо создать билдер, который позволит
+создавать объект игрока, добавляя ему характеристики постепенно.
 */
 
-type PlayerBuilder interface { // интерфейс билдера для игрока
-	SetHealth(int) error
-	SetGun(*Gun) error
-	GetPlayer() *Player
-}
-
-type PlayerBuilderImpl struct { // конкретная имлементация билдера игрока с полем типа *Player
-	player *Player
-}
-
-// имплементация методов билдера игрока
-
-func (p *PlayerBuilderImpl) SetHealth(h int) error {
-	if h <= 0 {
-		return errors.New("health can not be negative or equals zero")
-	}
-	p.player.health = h
-	return nil
-}
-
-func (p *PlayerBuilderImpl) SetGun(g *Gun) error {
-	if g == nil {
-		return errors.New("gun can not be nil")
-	}
-	p.player.gun = g
-	return nil
-}
-
-func (p *PlayerBuilderImpl) GetPlayer() *Player {
-	return &Player{
-		health: p.player.health,
-		gun:    p.player.gun,
-	}
-}
-
-type GunBuilder interface { // интерфейс билдера для оружия игрока
-	SetGunType(string) error
-	SetAmmo(int) error
-	SetAmmoToReload(int) error
-	GetGun() *Gun
-}
-
-type GunBuilderImpl struct { // конретная имплементация билдера для оружия игрока
-	gun *Gun
-}
-
-// имплементация методов билдера оружия
-
-func (g *GunBuilderImpl) GetGun() *Gun {
-	return &Gun{
-		gunType:      g.gun.gunType,
-		ammo:         g.gun.ammo,
-		ammoToReload: g.gun.ammoToReload,
-	}
-}
-
-func (g *GunBuilderImpl) SetGunType(t string) error {
-	if t == "" {
-		return errors.New("gun type can not be empty")
-	}
-	g.gun.gunType = t
-	return nil
-}
-
-func (g *GunBuilderImpl) SetAmmo(a int) error {
-	if a <= 0 {
-		return errors.New("ammo value can not be negative or equals zero")
-	}
-	g.gun.ammo = a
-	return nil
-}
-
-func (g *GunBuilderImpl) SetAmmoToReload(a int) error {
-	if a <= 0 {
-		return errors.New("ammo to reload value can not be negative or equals zero")
-	}
-	g.gun.ammoToReload = a
-	return nil
-}
-
-// структура самого игрока, где есть поле типа *Gun
-
-type Player struct {
-	health int
-	gun    *Gun
-}
-
-func (p Player) ShowInfo() {
-	fmt.Printf("Player: [health] %d\n", p.health)
-	fmt.Printf("Gun [gun type] %s ;[ammo] %d; [ammo to reload] %d\n", p.gun.gunType, p.gun.ammo, p.gun.ammoToReload)
-}
-
-type Gun struct {
+type Player struct { // структура игрока
+	name         string
+	health       int
 	gunType      string
 	ammo         int
 	ammoToReload int
 }
 
-// структура Game с двумя билдерами (для игрока и его оружия) интерфейсных типов
-
-type Game struct {
-	playerBuilder PlayerBuilder
-	gunBuilder    GunBuilder
+type PlayerBuilder struct { // билдера для игрока
+	player *Player
 }
 
-// основной метод создания объекта игрока и его оружия
+type PlayerInfoBuilder struct { // структура билдера, отвечающего за задание персоналной информации игрока
+	PlayerBuilder
+}
 
-func (g Game) build(health int, gunType string, ammo, ammoReload int) (*Player, error) {
-	err := g.gunBuilder.SetGunType(gunType)
-	if err != nil {
-		return nil, err
-	}
+type PlayerGunBuilder struct { // структура билдера, отвечающего за задание инормации об оружии игрока
+	PlayerBuilder
+}
 
-	err = g.gunBuilder.SetAmmo(ammo)
-	if err != nil {
-		return nil, err
-	}
+func NewPlayerBuilder() *PlayerBuilder { // конструктор создания билдера игрока (внтури создается объект Игрока с дефолтными значениями)
+	return &PlayerBuilder{player: &Player{}}
+}
 
-	err = g.gunBuilder.SetAmmoToReload(ammoReload)
-	if err != nil {
-		return nil, err
-	}
+func (p *PlayerBuilder) PlayerInfo() *PlayerInfoBuilder { // метод, возвращающий указатель на Билдер игрока, отвечающего за персональную информацию
+	return &PlayerInfoBuilder{*p}
+}
 
-	err = g.playerBuilder.SetHealth(health)
-	if err != nil {
-		return nil, err
-	}
+func (p *PlayerBuilder) GunInfo() *PlayerGunBuilder { // метод, возвращающий указатель на Билдер оружия игрока
+	return &PlayerGunBuilder{*p}
+}
 
-	err = g.playerBuilder.SetGun(g.gunBuilder.GetGun())
-	if err != nil {
-		return nil, err
-	}
-	return g.playerBuilder.GetPlayer(), nil
+// ряд методов билдера PlayerInfoBuilder, которые задают персональную информацию об игроке
+
+func (p *PlayerInfoBuilder) Name(name string) *PlayerInfoBuilder {
+	p.player.name = name
+	return p
+}
+
+func (p *PlayerInfoBuilder) Health(health int) *PlayerInfoBuilder {
+	p.player.health = health
+	return p
+}
+
+// ряд методов билдера PlayerGunBuilder, которые задают информацию об оружии игрока
+
+func (p *PlayerGunBuilder) GunType(gunType string) *PlayerGunBuilder {
+	p.player.gunType = gunType
+	return p
+}
+
+func (p *PlayerGunBuilder) Ammo(ammo int) *PlayerGunBuilder {
+	p.player.ammo = ammo
+	return p
+}
+
+func (p *PlayerGunBuilder) AmmoToReload(ammoToReload int) *PlayerGunBuilder {
+	p.player.ammoToReload = ammoToReload
+	return p
+}
+
+// конечный метод Build билдера игрока, возвращающего настроенный объект игрока
+
+func (p *PlayerBuilder) Build() *Player {
+	return p.player
 }
