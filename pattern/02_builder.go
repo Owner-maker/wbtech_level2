@@ -1,5 +1,7 @@
 package pattern
 
+import "fmt"
+
 /*
 	Реализовать паттерн «строитель».
 Объяснить применимость паттерна, его плюсы и минусы, а также реальные примеры использования данного примера на практике.
@@ -94,4 +96,20 @@ func (p *PlayerGunBuilder) AmmoToReload(ammoToReload int) *PlayerGunBuilder {
 
 func (p *PlayerBuilder) Build() *Player {
 	return p.player
+}
+
+// пример использования
+
+func testBuilder() {
+	b := NewPlayerBuilder()
+	player := b.PlayerInfo().
+		Name("Vasya").
+		Health(100).
+		GunInfo().
+		GunType("Ak-47").
+		Ammo(300).
+		AmmoToReload(35).
+		Build()
+
+	fmt.Print(player)
 }

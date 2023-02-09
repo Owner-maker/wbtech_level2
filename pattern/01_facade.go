@@ -64,8 +64,15 @@ func NewFactory() *Factory { // конструктор создания
 	}
 }
 
-func (f Factory) start() { // главный метод, предоставляющий доступ к запуску / работе всех сущностей
+func (f Factory) Start() { // главный метод, предоставляющий доступ к запуску / работе всех сущностей
 	f.loader.loadObject()
 	f.conveyor.startWorking()
 	f.handler.startHandling()
+}
+
+// пример использования
+
+func testFacade() {
+	f := NewFactory()
+	f.Start()
 }
