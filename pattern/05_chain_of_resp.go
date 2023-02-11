@@ -54,7 +54,7 @@ func (a *Author) SetNext(next Check) {
 }
 
 func (a *Author) Execute(n *News) {
-	if n.isAuthorChecked { // если этат уже пройден -> переходим к следующему
+	if n.isAuthorChecked { // если этап уже пройден -> переходим к следующему
 		a.next.Execute(n)
 		return
 	}
@@ -119,7 +119,7 @@ func (p *Printer) Execute(n *News) {
 
 // пример использования
 
-func chainOfRespTest() { // создаем сщности с конца, т.к. необходимо в поля обработчиков при их инициализации указывать сущность для следующей обработки
+func chainOfRespTest() { // создаем сущности с конца, т.к. необходимо в поля обработчиков при их инициализации указывать сущность для следующей обработки
 	printer := Printer{}
 
 	mainEditor := MainEditor{}
