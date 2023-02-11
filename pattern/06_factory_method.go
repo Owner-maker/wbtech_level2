@@ -25,7 +25,8 @@ import (
 1) Создание дополнительных иерархий, усложнение читаемости кода
 
 Примеры:
-1) Мы используем определенный UI - фреймворк и в определенный момент у нас появилась потребность в создании текстового поля другого оформления
+1) Мы используем определенный UI - фреймворк и в определенный момент у нас появилась потребность в создании текстового поля другого оформления, при
+закладывании заранее данного паттерна мы сможем удобно создавать нужный нам объект
 
 Мой пример:
 Небходимо иметь возможность создавать определенную банковскую карту - дебетовую или кредитную, в зависимости от входных параметров.
@@ -95,9 +96,13 @@ func newDebitAccount(balance, limit, percent float64) IBankAccount {
 	}
 }
 
+// структура кредитного аккаунта со встраиванием анонимного поля типа BankAccount
+
 type CreditAccount struct {
 	BankAccount
 }
+
+// метод, возвращающий конкретный объект кредитного аккаунта
 
 func newCreditAccount(balance, limit, percent float64) IBankAccount {
 	return &CreditAccount{
@@ -118,6 +123,8 @@ func getBankAccount(accountType string, balance, limit, percent float64) (IBankA
 	}
 	return nil, errors.New("wrong account type")
 }
+
+// пример использования
 
 func factoryMethodTest() {
 	creditAcc, _ := getBankAccount("creditAccount", 0, 100_000, 20)
