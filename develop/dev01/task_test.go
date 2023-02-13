@@ -19,7 +19,7 @@ type Test struct {
 	expectedOutput TimeMock
 }
 
-func Test_Time(t *testing.T) {
+func Test_GetHostTime(t *testing.T) {
 	hostTime, _ := getHostTime(hostName)
 	_, err := getHostTime(wrongHostMock)
 	sysTime := time.Now()
