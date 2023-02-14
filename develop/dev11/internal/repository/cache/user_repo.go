@@ -11,7 +11,7 @@ type UserCacheRepo struct {
 	cch *Cache
 }
 
-func NewOrderCache(cch *Cache) *UserCacheRepo {
+func NewUserCache(cch *Cache) *UserCacheRepo {
 	return &UserCacheRepo{cch: cch}
 }
 
