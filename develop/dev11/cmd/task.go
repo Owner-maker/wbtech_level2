@@ -1,5 +1,15 @@
 package main
 
+import (
+	"context"
+	"dev11/internal/delivery/http"
+	"dev11/internal/service"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+)
+
 /*
 === HTTP server ===
 
@@ -22,6 +32,29 @@ package main
 	4. Код должен проходить проверки go vet и golint.
 */
 
-func main() {
+const serverPort = "8080"
 
+func main() {
+	s := service.NewService()
+	h := http.NewHandler(s)
+
+	// graceful shutdown
+
+	srv := new(http.Server)
+	go func() {
+		if err := srv.Run(serverPort, h.InitRoutes()); err != nil {
+			log.Fatal(err)
+		}
+	}()
+	log.Print("Service is successfully started...")
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+	<-quit
+
+	log.Print("Service is shutting down...")
+
+	if err := srv.Shutdown(context.Background()); err != nil {
+		log.Printf("error occured on server shutting down: %s", err.Error())
+	}
 }
