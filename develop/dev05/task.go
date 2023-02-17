@@ -28,8 +28,6 @@ import (
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
-const inputFileName = "input.txt"
-
 var (
 	afterFlag      = flag.Int("A", 0, "print +N lines after match")
 	beforeFlag     = flag.Int("B", 0, "print +N lines until match")
