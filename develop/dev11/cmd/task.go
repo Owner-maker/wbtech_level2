@@ -38,8 +38,6 @@ func main() {
 	s := service.NewService()
 	h := http.NewHandler(s)
 
-	// graceful shutdown
-
 	srv := new(http.Server)
 	go func() {
 		if err := srv.Run(serverPort, h.InitRoutes()); err != nil {
@@ -48,6 +46,7 @@ func main() {
 	}()
 	log.Print("Service is successfully started...")
 
+	// graceful shutdown
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 	<-quit
