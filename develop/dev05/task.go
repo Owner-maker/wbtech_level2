@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"regexp"
@@ -52,35 +50,7 @@ type PairList []Pair
 
 func (p PairList) Len() int           { return len(p) }
 func (p PairList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
-func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
-
-func readLinesFromFile(file string) ([]string, error) {
-	data, err := os.Open(file)
-	if err != nil {
-		return nil, err
-	}
-	defer data.Close()
-
-	var res []string
-	r := bufio.NewReader(data)
-	const d = '\n'
-	for {
-		l, err := r.ReadString(d)
-		if err == nil || len(l) > 0 {
-			if err != nil {
-				l += string(d)
-			}
-			res = append(res, l)
-		}
-		if err != nil {
-			if err == io.EOF {
-				break
-			}
-			return nil, err
-		}
-	}
-	return res, nil
-}
+func (p PairList) Less(i, j int) bool { return p[i].Key < p[j].Key }
 
 func trimStrOfEndSymbols(s string) string {
 	s = strings.TrimSuffix(s, "\n")
@@ -89,13 +59,15 @@ func trimStrOfEndSymbols(s string) string {
 }
 
 func addLinesBeforeMatchedOne(lines []string, matchInd, n int, m *map[int]string) {
+	curInd := matchInd
 	if n > 0 {
 		border := matchInd - n
 		if border < 0 {
 			border = 0
 		}
-		for i, v := range lines[border:matchInd] {
-			(*m)[i+1] = v
+		for _, v := range lines[border:matchInd] {
+			(*m)[curInd] = v
+			curInd--
 		}
 	}
 }
@@ -103,6 +75,8 @@ func addLinesBeforeMatchedOne(lines []string, matchInd, n int, m *map[int]string
 func addLinesAfterMatchedOne(lines []string, matchInd, n int, m *map[int]string) {
 	var leftBorder int
 	var rightBorder int
+	curInd := matchInd + 2
+
 	l := len(lines)
 
 	if n > 0 {
@@ -115,8 +89,9 @@ func addLinesAfterMatchedOne(lines []string, matchInd, n int, m *map[int]string)
 			rightBorder = l - 1
 		}
 
-		for i, v := range lines[leftBorder:rightBorder] {
-			(*m)[i+1] = v
+		for _, v := range lines[leftBorder:rightBorder] {
+			(*m)[curInd] = v
+			curInd++
 		}
 	}
 }
@@ -136,10 +111,11 @@ func convertMapValuesToStringSlice(m *map[int]string) []string {
 	for _, v := range pairs {
 		tempStr = v.Value
 		if *lineNumFlag {
-			tempStr = fmt.Sprintf("%d %s", i, v.Value)
+			tempStr = fmt.Sprintf("%d %s", v.Key, v.Value)
 		}
 
 		res[i] = tempStr
+		i++
 	}
 	return res
 }
@@ -188,7 +164,7 @@ func grep(lines []string, pattern string) (int, []string, error) {
 
 	for i, v := range lines {
 		tempStr = trimStrOfEndSymbols(v)
-		if (r.MatchString(pattern) && !*invertFlag) || (!r.MatchString(pattern) && *invertFlag) {
+		if (r.MatchString(tempStr) && !*invertFlag) || (!r.MatchString(tempStr) && *invertFlag) {
 			m[i+1] = tempStr
 			if *contextFlag > 0 {
 				addLinesBeforeMatchedOne(lines, i, *contextFlag, &m)
@@ -214,19 +190,17 @@ func grep(lines []string, pattern string) (int, []string, error) {
 func main() {
 	flag.Parse()
 
-	r, err := readLinesFromFile(inputFileName)
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
+	r := []string{"hi", "hello", "hey", "hello", "dude", "dude"}
 
-	count, lines, err := grep(r, "hello")
+	count, lines, err := grep(r, ".Y")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
 	if len(lines) != 0 {
-		fmt.Print(lines)
+		for _, v := range lines {
+			fmt.Println(v)
+		}
 	} else {
 		fmt.Print(count)
 	}
