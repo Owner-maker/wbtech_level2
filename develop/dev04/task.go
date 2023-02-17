@@ -81,12 +81,8 @@ func getConvertedMap(hashMap map[uint32][]string) map[string][]string {
 	return res
 }
 
-func getAnagrams(words []string) map[string][]string {
-	return getConvertedMap(getMapWithHashKeyWords(words))
-}
-
 func main() {
 	a := []string{"пятак", "листок", "слиток", "пятка", "тяпка", "столик", "кошка", "шокка"}
-	r := getAnagrams(a)
+	r := getConvertedMap(getMapWithHashKeyWords(a))
 	fmt.Println(r)
 }
