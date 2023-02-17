@@ -92,7 +92,7 @@ func writeLinesToFile(file string, strings []string) error {
 	}
 
 	for _, v := range strings {
-		_, err = data.WriteString(fmt.Sprintf("%s", v))
+		_, err = data.WriteString(v)
 		if err != nil {
 			return err
 		}
@@ -152,7 +152,7 @@ func sortByNumbers(lines []string) ([]string, error) {
 func reverse(lines []string) []string {
 	res := make([]string, len(lines))
 	l := len(lines) - 1
-	for i, _ := range lines {
+	for i := range lines {
 		res = append(res, lines[l-i])
 	}
 	return res
@@ -187,6 +187,10 @@ func main() {
 		}
 	} else if *columnSortFlag >= 0 {
 		r, err = sortByColumn(r, *columnSortFlag)
+		if err != nil {
+			log.Println(err)
+			os.Exit(1)
+		}
 	}
 
 	err = writeLinesToFile(outputFileName, r)
