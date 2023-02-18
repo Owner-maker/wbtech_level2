@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleIndex.css" >
+    <link rel="shortcut icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="./css/styleNeon.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cuprum&display=swap">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="./css/mediaIndex.css">
+    <title>Main Page</title>
+</head>
+<body class="body">
+    <header class="header">
+        <div class="logo">
+            <div class="sign">
+                <span class="sign-fast-flicker">Mov </span> ies<pre> </pre> <span class="sign-flicker">from </span><sup>90s</sup>
+            </div>
+        </div>
+        
+            <div class="menu-search">
+                <nav class="menu">
+                    <input type="checkbox" name="toggle" id="menu" class="menu__toggle">
+                    <label for="menu" class="menu__toggle"><i class="fa fa-bars"></i>Меню</label>
+                    <ul class="menu__block1">
+                        <li class="menu__block1-elem"><a href="../index.html" class="menu__block1-link"><i class="fa fa-home"></i>Главная</a></li>
+                        <li class="menu__block1-elem">
+                            <input type="checkbox" name="toggle" class="menu__subtoggle" id="sub_m1">
+                            <a href="./html/filmsPage.html" class="menu__block1-link" id="f"><i class="fa fa-film"></i>Фильмы</a>
+                            <label for="sub_m1" class="menu__subtoggle"><i class="fa"></i></label>
+                            <ul class="menu__block2">
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#actionmovie" class="menu__block2-link">Боевики</a></li>
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#drama" class="menu__block2-link">Драмы</a></li>
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#comedy" class="menu__block2-link">Комедии</a></li>
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#fantastics" class="menu__block2-link">Фантастика</a></li>
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#thriller" class="menu__block2-link">Триллеры</a></li>
+                                <li class="menu__block2-elem"><a href="./html/filmsPage.html#horror" class="menu__block2-link">Ужасы</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu__block1-elem"><a href="./html/selection.html" class="menu__block1-link"><i class="fa fa-cogs"></i>Подборка</a></li>
+                        <li class="menu__block1-elem"><a href="./html/directors.html" class="menu__block1-link" id="d"><i class="fa fa-users"></i>Режиссеры</a></li>
+                    </ul>
+                </nav>
+                <form class="menu__search">
+                    <input type="text" class="menu__search-field" placeholder="Поиск" id="sField">
+                    <button type="submit" class="menu__search-submit" id="sButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        
+    </header>
+    <div class="slider">
+        <div class="slide" id="slider">
+            <img src="./images/fragments/frg1.jpg" title="Список Шиндлера 1993г." alt="Список Шиндлера 1993г." class="slide-single">
+            <img src="./images/fragments/frg2.jpg" title="Матрица 1999г." alt="Матрица 1999г." class="slide-single">
+            <img src="./images/fragments/frg3.jpg" title="Спасти рядового Райана 1998г." alt="Спасти рядового Райана 1998г." class="slide-single">
+            <img src="./images/fragments/frg4.jpg" title="День сурка 1993г." alt="День сурка 1993г." class="slide-single">
+            <img src="./images/fragments/frg5.jpg" title="Бойцовский клуб 1999г." alt="Бойцовский клуб 1999г." class="slide-single">
+        </div>
+    </div>
+
+    <div class="block1">
+        <div class="block1__elems">
+            <div class="block1__elem1">
+                <p class="block1-text">Фильмы — это искусство нашей жизни и они играют важную роль в жизни нашего общества. Многие люди считают поход в кинотеатр одним из лучших способов провести свой досуг. История кино началась в 1890–х годах, когда были изобретены кинокамеры, и начали создаваться кинопроизводственные компании. </p>
+            </div>
+            <div class="block1__elem2">
+                <img src="./images/cinema.jpg" class="block1-img">
+            </div>
+        </div>
+    </div>
+
+    <div class="block2">
+        <div class="block2__elems">
+            <div class="block2__elem2">
+                <p class="block2-text">На мой взгляд, каждый человек сталкивался с такой проблемой, когда нечего посмотреть. Ведь большинство современных фильмов довольно пресные и однотипные. </p>
+                <p class="block2-text">Но есть фильмы относительно недавно ушедшей эпохи. Это фильмы 1990-х годов. Мне кажется, что в этот период у каждого режиссера присутствовал свой интересный подход к съемкам фильмов, более уникальный.</p>
+
+            </div>
+            <div class="block2__elem2">
+                <img src="./images/kino.jpg" class="block2-img">
+            </div>
+        </div>
+    </div>
+
+    <div class="block3">
+        <div class="block3__elem">
+            <p class="block3-text">    Именно поэтому я постарался собрать здесь одни из лучших фильмов ушедшей эпохи, проверенные временем. </p>
+        </div>
+    </div>
+
+    <div class="block4">
+        <div class="block4__elems">
+            <div class="block4__elem1">
+                <div class="block4__elem1-text">
+                    <p class="block4-text">    Если Вы знаете отличный фильм того периода, но его здесь нет - заполните форму, мы с удовольствием рассмотрим Ваш вариант и добавим его в данную подборку.</p>
+                </div>
+                <div class="block4__elem1-arrow">
+                    <span class="sign-fast-flicker"><i class="fa fa-arrow-right"></i> </span> 
+                </div>
+            </div>
+
+            <div class="block4__elem2">
+                <div class="block4_elem2-wrapp">
+                    <form action="check.php" method="POST" enctype="multipart/form-data" class="block4__elem2__form">
+                        <fieldset class="block4__elem2__form">
+    
+                            <div class="field">
+                                <input
+                                  type="text"
+                                  name="name"
+                                  pattern="^[А-Яа-яЁё\s]+$"
+                                  placeholder="Введите имя"
+                                  maxlength="30"
+                                  onkeyup="var yratext=/[' ','А-Яа-яЁё']/; if(!yratext.test(this.value)) this.value=''"
+                                  required
+                                  class="field-input"
+                                />
+                              </div>
+    
+                              <div class="field">
+                                <input
+                                  type="text"
+                                  name="sername"
+                                  pattern="^[А-Яа-яЁё\s]+$"
+                                  placeholder="Введите фамилию"
+                                  maxlength="30"
+                                  onkeyup="var yratext=/[' ','А-Яа-яЁё']/; if(!yratext.test(this.value)) this.value=''"
+                                  required
+                                />
+                              </div>
+    
+                              <div class="field__sex">
+                                <small class="field-sex">Мужской</small>
+                                <input type="radio" name="sex" value="male" checked required/>
+                                <small class="field-sex">Женский</small>
+                                <input type="radio" name="sex" value="female" required />
+                              </div>
+    
+                              <div class="field">
+                                <input
+                                  type="email"
+                                  name="email"
+                                  placeholder="Введите email"
+                                  required
+                                />
+                              </div>
+                            
+                              <div class="field">
+                                <input
+                                  type="text"
+                                  name="film"
+                                  placeholder="Название фильма"
+                                  required
+                                />
+                              </div>
+    
+                              <div class="field">
+                                <small class="field-date">Год фильма</small>
+                                <input
+                                  type="number"
+                                  name="age"
+                                  min="1990"
+                                  max="2000"
+                                  placeholder="1990"
+                                  step="1"
+                                  class="mid2"
+                                />
+                              </div>
+    
+                              <div class="field__agreement">
+                                <small class="field__agreement-text">Согласие на обработку персональных данных</small>
+                                <input type="checkbox" name="agreement" required />
+                              </div>
+    
+                              <div class="field__buttons">
+                                <input type="submit" name="final" class="field__buttons-item"/>
+                                <input type="reset" name="reset" class="field__buttons-item"/>
+                              </div>
+    
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+    <footer class="footer">
+        <div class="footer__block">
+            <div class="footer__block__elem1">
+                <p class="footer__block-text">Copyright</p>
+                <span class="footer__block-symbol">&#169;</span>
+                <p class="footer__block-text">2021</p>
+            </div>
+            <div class="footer__block__elem2">
+                <div>
+                    <a href="" target="_blank"><img src="./images/facebook.png" class="footer__block-img" alt="Facebook logo" title="My facebook"></a>
+                </div>
+                <div>
+                    <a href="" target="_blank"><img src="./images/twitter.png" class="footer__block-img" alt="Twitter logo" title="My twitter"></a>
+                </div>
+                <div>
+                    <a href="" target="_blank"><img src="./images/instagram.png" class="footer__block-img" alt="Instagram logo" title="My Instagram"></a>
+                </div>
+                <div>
+                    <a href="" target="_blank"><img src="./images/vk.png" class="footer__block-img" alt="VK logo" title="My VK"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="./JS/slider.js"></script>
+    <script src="./JS/jquerry1_8_3.js"></script>
+    <script src="./JS/menuFixed.js "></script>
+    <script src="./JS/films.js"></script>
+    <script src="./JS/searchInput.js"></script>
+    <script src="./JS/goSingleFilmPage.js"></script>
+</body>
+
+
+</html>
